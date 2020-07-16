@@ -1,0 +1,7 @@
+.DS_Store
+jaguar-df/
+ba-dua/
+output/
+docker_build.sh
+docker_badua.sh
+docker_jaguar.sh

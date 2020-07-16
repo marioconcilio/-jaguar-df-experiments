@@ -1,0 +1,20 @@
+----------------- ------------------------
+   Identifier           Project name       
+----------------- ------------------------
+Chart             jfreechart              
+Cli               commons-cli             
+Closure           closure-compiler        
+Codec             commons-codec           
+Collections       commons-collections     
+Compress          commons-compress        
+Csv               commons-csv             
+Gson              gson                    
+JacksonCore       jackson-core            
+JacksonDatabind   jackson-databind        
+JacksonXml        jackson-dataformat-xml  
+Jsoup             jsoup                   
+JxPath            commons-jxpath          
+Lang              commons-lang            
+Math              commons-math            
+Mockito           mockito                 
+Time              joda-time
