@@ -2,14 +2,13 @@
 
 readonly PROJECT_ID=$1
 readonly VERSION=$2
-readonly LOG_LEVEL=$3
 
-readonly JAGUAR_CONTAINER="jaguar_container"
+readonly CONTAINER="jaguar_container_$PROJECT_ID"
 
 docker run \
-		--name $JAGUAR_CONTAINER \
-		--volume $(pwd)/output:/ppgsi/output \
-		jaguar \
-		./run_jaguar.sh $PROJECT_ID $VERSION $LOG_LEVEL
+	--name $CONTAINER \
+	--volume $(pwd)/output:/ppgsi/output \
+	jaguar \
+	./run_jaguar.sh $PROJECT_ID $VERSION
 		
-docker rm $JAGUAR_CONTAINER
+docker rm $CONTAINER
