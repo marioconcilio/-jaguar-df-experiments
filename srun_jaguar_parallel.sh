@@ -27,8 +27,14 @@ module load parallel
 # necessary to increase the user process limit.
 ulimit -u 10000
 
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 a=("Chart 1b" "Cli 1b" "Closure 1b" "Codec 1b" "Collections 25b" "Compress 1b" "Csv 1b" "Gson 1b" "JacksonCore 1b")
 
+# build docker image
+srun -n1 -N1 --job-name=build --exclusive docker build -t=jaguar .
+
+# parallel jobs
 parallel --delay 0.2 -j $SLURM_NTASKS --joblog runtask.log --resume \
-	srun --exclusive -N1 -n1 \
-	./docker_jaguar.sh ::: "${a[@]}"
+	"srun --exclusive -N1 -n1 ./docker_jaguar.sh {}" ::: "${a[@]}"
