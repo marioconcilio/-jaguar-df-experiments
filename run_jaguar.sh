@@ -30,7 +30,7 @@ function run_jaguar() {
 	# run tests without jaguar
 	echo -e "${YELLOW}[$PROJECT_NAME] running tests${NOCOLOR}"
 	cd $project_path
-	(time defects4j test) &> $output_dir/tests.out
+	(time defects4j test) &> $root/$output_dir/tests.out
 	cd $root
 
 	# run jaguar
@@ -57,7 +57,9 @@ function run_jaguar() {
 	# pretty print report xml
 	xmllint --format $output_dir/jaguar/badua_report.xml --output $output_dir/jaguar/badua_report.xml
 
+	echo -e "${YELLOW}[$PROJECT_NAME] copying output files${NOCOLOR}"
 	cp -rf $project_path/.jaguar $output_dir/jaguar
+
 	echo -e "${GREEN}[$PROJECT_NAME] done${NOCOLOR}"
 }
 
