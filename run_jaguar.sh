@@ -29,7 +29,7 @@ function run_jaguar() {
 
 	# run tests without jaguar
 	echo -e "${YELLOW}[$PROJECT_NAME] running tests${NOCOLOR}"
-	cd project_path
+	cd $project_path
 	(time defects4j test) &> $output_dir/tests.out
 	cd $root
 
@@ -49,7 +49,7 @@ function run_jaguar() {
 	java -jar $badua_jar report \
 			-show-classes \
 			-input $coverage_ser \
-			-classes $classes_dir \
+			-classes $project_path/$classes_dir \
 			-xml $output_dir/jaguar/badua_report.xml
 
 	rm $coverage_ser

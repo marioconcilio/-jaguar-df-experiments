@@ -4,7 +4,7 @@
 #SBATCH --output output-jaguar.%J       # Job output
 #SBATCH --partition=SP2
 #SBATCH --ntasks=17              		# number of tasks / mpi processes
-#SBATCH --cpus-per-task=2       		# Number OpenMP Threads per process
+#SBATCH --cpus-per-task=1       		# Number OpenMP Threads per process
 #SBATCH --time=24:00:00
 #SBATCH --mail-type=ALL                 # Type of email notification- BEGIN,END,FAIL,ALL
 #SBATCH --mail-user=mario.neto@usp.br   # Email to which notifications will be sent
