@@ -54,6 +54,9 @@ function run_jaguar() {
 
 	rm $coverage_ser
 
+	# pretty print report xml
+	xmllint --format $output_dir/jaguar/badua_report.xml --output $output_dir/jaguar/badua_report.xml
+
 	cp -rf $project_path/.jaguar $output_dir/jaguar
 	echo -e "${GREEN}[$PROJECT_NAME] done${NOCOLOR}"
 }
