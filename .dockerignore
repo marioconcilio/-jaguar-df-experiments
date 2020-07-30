@@ -1,7 +1,12 @@
 .DS_Store
+
+# projects folders
 jaguar-df/
 ba-dua/
 output/
+d4jprojects/
+
+# docker scripts
 docker_build.sh
 docker_badua.sh
 docker_jaguar.sh

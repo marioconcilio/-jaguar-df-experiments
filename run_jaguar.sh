@@ -14,35 +14,45 @@ function run_jaguar() {
 	local project_dir=$1
 	local d4j_projects="d4jprojects"
 	local project_path="$d4j_projects/$project_dir"
-	local jaguar_jar="jaguar-df/br.usp.each.saeg.jaguar.core/target/br.usp.each.saeg.jaguar.core-1.0.0-jar-with-dependencies.jar"
+
+	local jaguar_jar="jaguar-df/target/jaguar-df-0.1-SNAPSHOT-jar-with-dependencies.jar"
 	local agent_jar="ba-dua/ba-dua-agent-rt/target/ba-dua-agent-rt-0.4.1-SNAPSHOT-all.jar"
 	local badua_jar="ba-dua/ba-dua-cli/target/ba-dua-cli-0.4.1-SNAPSHOT-all.jar"
+
 	local classes_dir=$(defects4j export -p dir.bin.classes -w $project_path)
 	local tests_dir=$(defects4j export -p dir.bin.tests -w $project_path)
-	local classpath="$(defects4j export -p cp.test -w $project_path)"
 	local output_dir="output/$project_dir/$VERSION"
+	
+	local classpath="$(defects4j export -p cp.test -w $project_path):$agent_jar:$jaguar_jar"
+
+	local main_class="br.usp.each.saeg.jaguardf.cli.JaguarRunner"
+	local junit_class="org.junit.runner.JUnitCore"
+	
+	local tests_file="tests.out"
 	local coverage_ser="coverage.ser"
-	local root=$(pwd)
 
 	# create dir
 	mkdir -p $output_dir/jaguar
 
+	# get tests to run
+	defects4j export -p tests.all -w $project_path -o $tests_file
+
 	# run tests without jaguar
 	echo -e "${YELLOW}[$PROJECT_NAME] running tests${NOCOLOR}"
-	cd $project_path
-	(time defects4j test) &> $root/$output_dir/tests.out
-	cd $root
+	local tests=$(cat $tests_file | tr "\n" " " | awk '{$1=$1};1')
+	(time java -cp $classpath \
+			$junit_class $tests) &> $output_dir/tests.out
 
 	# run jaguar
 	echo -e "${YELLOW}[$PROJECT_NAME] running jaguar${NOCOLOR}"
-	(time java -jar $jaguar_jar \
-			--agent $agent_jar \
-			--classpath $classpath \
+	(time java -javaagent:$agent_jar \
+			-cp $classpath \
+			$main_class \
 			--projectDir $project_path \
 			--classesDir $classes_dir \
 			--testsDir $tests_dir \
-			--logLevel $LOG_LEVEL \
-			--dataflow) &> $output_dir/jaguar.out
+			--tests $tests_file \
+			--logLevel $LOG_LEVEL) &> $output_dir/jaguar.out
 
 	# ba-dua report
 	echo -e "${YELLOW}[$PROJECT_NAME] generating ba-dua report${NOCOLOR}"
@@ -53,6 +63,7 @@ function run_jaguar() {
 			-xml $output_dir/jaguar/badua_report.xml
 
 	rm $coverage_ser
+	rm $tests_file
 
 	# pretty print report xml
 	xmllint --format $output_dir/jaguar/badua_report.xml --output $output_dir/jaguar/badua_report.xml

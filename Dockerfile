@@ -30,7 +30,7 @@ WORKDIR /ppgsi
 # install jaguar-df
 RUN git clone https://github.com/marioconcilio/jaguar-df.git
 WORKDIR jaguar-df
-RUN make build_core
+RUN mvn clean install
 
 WORKDIR /ppgsi
 

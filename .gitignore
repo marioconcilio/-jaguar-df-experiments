@@ -35,6 +35,7 @@ Temporary Items
 jaguar-df/
 ba-dua/
 output/
+d4jprojects/
 *.out
 
 # End of https://www.toptal.com/developers/gitignore/api/osx,macos
