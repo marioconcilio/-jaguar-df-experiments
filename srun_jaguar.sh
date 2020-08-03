@@ -4,8 +4,8 @@
 #SBATCH --output output-jaguar.%J       # Job output
 #SBATCH --partition=SP2
 #SBATCH --ntasks=17              		# number of tasks / mpi processes
-#SBATCH --cpus-per-task=1       		# Number OpenMP Threads per process
-#SBATCH --time=24:00:00
+#SBATCH --cpus-per-task=2       		# Number OpenMP Threads per process
+#SBATCH --time=48:00:00
 #SBATCH --mail-type=ALL                 # Type of email notification- BEGIN,END,FAIL,ALL
 #SBATCH --mail-user=mario.neto@usp.br   # Email to which notifications will be sent
 
@@ -23,10 +23,6 @@ echo $SLURM_NTASKS              #Total number of cores for job
 # module swap gnu intel/18.0.2.199
 
 # Run tasks:
-
-# build docker image
-srun -n1 -N1 --job-name=build --exclusive \
-		docker build -t=jaguar .
 
 # jfreechart
 srun -n1 -N1 --job-name=Chart --exclusive \
