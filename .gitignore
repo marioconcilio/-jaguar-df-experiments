@@ -37,5 +37,6 @@ ba-dua/
 output/
 d4jprojects/
 *.out
+*.zip
 
 # End of https://www.toptal.com/developers/gitignore/api/osx,macos
