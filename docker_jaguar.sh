@@ -5,7 +5,7 @@ readonly VERSION=$2
 
 readonly PROJECT_LOWER=$(echo $PROJECT_ID | awk '{print tolower($0)}')
 readonly JAGUAR_IMAGE="jaguar-$PROJECT_LOWER"
-readonly CONTAINER="jc-$PROJECT_LOWER"
+readonly CONTAINER="jc-$PROJECT_LOWER-$VERSION"
 
 docker build -t=$JAGUAR_IMAGE .
 
