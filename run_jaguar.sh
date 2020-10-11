@@ -38,13 +38,13 @@ function run_jaguar() {
 	defects4j export -p tests.all -w $project_path -o $tests_file
 
 	# run tests without jaguar
-	echo -e "${YELLOW}[$PROJECT_NAME] running tests${NOCOLOR}"
+	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] running tests${NOCOLOR}"
 	local tests=$(cat $tests_file | tr "\n" " " | awk '{$1=$1};1')
 	(time java -cp $classpath \
 			$junit_class $tests) &> $output_dir/tests.out
 
 	# run jaguar
-	echo -e "${YELLOW}[$PROJECT_NAME] running jaguar${NOCOLOR}"
+	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] running jaguar${NOCOLOR}"
 	(time java -javaagent:$agent_jar \
 			-cp $classpath \
 			$main_class \
@@ -55,7 +55,7 @@ function run_jaguar() {
 			--logLevel $LOG_LEVEL) &> $output_dir/jaguar.out
 
 	# ba-dua report
-	echo -e "${YELLOW}[$PROJECT_NAME] generating ba-dua report${NOCOLOR}"
+	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] generating ba-dua report${NOCOLOR}"
 	java -jar $badua_jar report \
 			-show-classes \
 			-input $coverage_ser \
@@ -68,10 +68,13 @@ function run_jaguar() {
 	# pretty print report xml
 	xmllint --format $output_dir/jaguar/badua_report.xml --output $output_dir/jaguar/badua_report.xml
 
-	echo -e "${YELLOW}[$PROJECT_NAME] copying output files${NOCOLOR}"
+	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] copying output files${NOCOLOR}"
 	cp -rf $project_path/.jaguar $output_dir/jaguar
 
-	echo -e "${GREEN}[$PROJECT_NAME] done${NOCOLOR}"
+	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] comparig duas covered by jaguar and ba-dua${NOCOLOR}"
+	python3 assert_jaguar.py $output_dir/jaguar &> $output_dir/jaguar/assert_duas.out
+
+	echo -e "${GREEN}[$PROJECT_NAME ${VERSION}] jaguar done${NOCOLOR}"
 }
 
 function main() {
@@ -113,4 +116,3 @@ function main() {
 }
 
 main
-
