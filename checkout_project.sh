@@ -18,18 +18,18 @@ function install_project() {
 	mkdir -p $d4j_projects
 
 	# checkout project version
-	echo -e "${YELLOW}[${PROJECT_NAME}] checkout${NOCOLOR}"
+	echo -e "${YELLOW}[${PROJECT_NAME} ${VERSION}] checkout${NOCOLOR}"
 	defects4j checkout -p $PROJECT_NAME -v $VERSION -w $project_path
 
 	# compile project
 	cd $project_path
-	echo -e "${YELLOW}[${PROJECT_NAME}] compiling${NOCOLOR}"
+	echo -e "${YELLOW}[${PROJECT_NAME} ${VERSION}] compiling${NOCOLOR}"
 	defects4j compile
 
 	# run tests
-	echo -e "${YELLOW}[${PROJECT_NAME}] running tests${NOCOLOR}"
+	echo -e "${YELLOW}[${PROJECT_NAME} ${VERSION}] running tests${NOCOLOR}"
 	defects4j test
-	echo -e "${GREEN}[${PROJECT_NAME}] done${NOCOLOR}"
+	echo -e "${GREEN}[${PROJECT_NAME} ${VERSION}] checkout done${NOCOLOR}"
 
 	# back to root folder
 	cd $root
@@ -66,4 +66,3 @@ function main() {
 }
 
 main
-
