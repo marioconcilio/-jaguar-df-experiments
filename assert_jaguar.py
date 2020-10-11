@@ -2,7 +2,6 @@
 
 import numpy as np
 import os
-import progressbar
 import sys
 import xml.etree.ElementTree as ET
 
