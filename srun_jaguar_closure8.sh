@@ -1,7 +1,7 @@
 #!/bin/bash -v
 
-#SBATCH --job-name=closure7        		# Job name
-#SBATCH --output output-closure7.%J     # Job output
+#SBATCH --job-name=closure8        		# Job name
+#SBATCH --output output-closure8.%J     # Job output
 #SBATCH --partition=SP2
 #SBATCH --ntasks=20              		# number of tasks / mpi processes
 #SBATCH --cpus-per-task=1       		# Number OpenMP Threads per process
