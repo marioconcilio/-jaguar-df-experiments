@@ -30,3 +30,6 @@ for i in {1..112}; do
 done
 
 wait
+
+srun -n1 -N1 --job-name="Zip JacksonDatabind" --exclusive zip -r jacksondatabind.zip output/jackson-databind
+srun -n1 -N1 --job-name="Clean JacksonDatabind" --exclusive rm -rf output/jackson-databind
