@@ -34,3 +34,6 @@ for i in {1..27}; do
 done
 
 wait
+
+srun -n1 -N1 --job-name="Zip Time" --exclusive zip -r jacksondatabind.zip output/joda-time
+srun -n1 -N1 --job-name="Clean Time" --exclusive rm -rf output/joda-time
