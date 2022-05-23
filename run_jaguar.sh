@@ -15,7 +15,7 @@ function run_jaguar() {
 	local d4j_projects="d4jprojects"
 	local project_path="$d4j_projects/$project_dir"
 
-	local jaguar_jar="jaguar-df/target/jaguar-df-0.1-SNAPSHOT-jar-with-dependencies.jar"
+	local jaguar_jar="jaguar-df/target/jaguar-df-0.1-SNAPSHOT-all.jar"
 	local agent_jar="ba-dua/ba-dua-agent-rt/target/ba-dua-agent-rt-0.4.1-SNAPSHOT-all.jar"
 	local badua_jar="ba-dua/ba-dua-cli/target/ba-dua-cli-0.4.1-SNAPSHOT-all.jar"
 
@@ -46,7 +46,8 @@ function run_jaguar() {
 	# run jaguar
 	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] running jaguar${NOCOLOR}"
 	(time java -javaagent:$agent_jar \
-			-Dbadua.experimental.exception_handler=true \
+			-Dbadua.experimental.exception_handler=false \
+			-Xmx1536m \
 			-cp $classpath \
 			$main_class \
 			--projectDir $project_path \
