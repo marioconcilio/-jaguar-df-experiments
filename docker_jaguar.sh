@@ -13,6 +13,6 @@ docker run \
 	--name $CONTAINER \
 	--volume $(pwd)/output:/ppgsi/output \
 	$JAGUAR_IMAGE \
-	./run_jaguar.sh $PROJECT_ID $VERSION
+	./run_jaguar.sh $PROJECT_ID $VERSION DEBUG
 		
 docker rm $CONTAINER
