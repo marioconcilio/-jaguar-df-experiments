@@ -47,6 +47,7 @@ function run_jaguar() {
 	echo -e "${YELLOW}[$PROJECT_NAME ${VERSION}] running jaguar${NOCOLOR}"
 	(time java -javaagent:$agent_jar \
 			-Dbadua.experimental.exception_handler=false \
+			-Dbadua.experimental.ModifiedSystemClassRuntime=true \
 			-Xmx1536m \
 			-cp $classpath \
 			$main_class \
