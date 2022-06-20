@@ -23,11 +23,7 @@ function run_jaguar() {
 	local agent_jar_path="ba-dua/ba-dua-agent-rt/target/${agent_jar_file}"
 	local badua_jar_path="ba-dua/ba-dua-cli/target/${badua_jar_file}"
 
-	local classes_dir=$(defects4j export -p dir.bin.classes -w .)
-	local tests_dir=$(defects4j export -p dir.bin.tests -w .)
 	local output_dir="output/$project_dir/$VERSION"
-	
-	local classpath="$(defects4j export -p cp.test -w .):$agent_jar_file:$jaguar_jar_file"
 
 	local main_class="br.usp.each.saeg.jaguardf.cli.JaguarRunner"
 	local junit_class="org.junit.runner.JUnitCore"
@@ -44,6 +40,14 @@ function run_jaguar() {
 	cp -f $badua_jar_path $project_path
 
 	cd $project_path
+
+	#
+	# inside project dir
+	#
+
+	local classes_dir=$(defects4j export -p dir.bin.classes -w .)
+	local tests_dir=$(defects4j export -p dir.bin.tests -w .)
+	local classpath="$(defects4j export -p cp.test -w .):$agent_jar_file:$jaguar_jar_file"
 
 	# get tests to run
 	defects4j export -p tests.all -w . -o $tests_file
@@ -80,6 +84,10 @@ function run_jaguar() {
 	rm $tests_file
 
 	cd ../..
+
+	#
+	# outside project dir
+	#
 
 	# pretty print report xml
 	xmllint --format $output_dir/jaguar/badua_report.xml --output $output_dir/jaguar/badua_report.xml
